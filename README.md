@@ -88,12 +88,14 @@ Allows the creation of a single user.
 #### Response :
 ```javascript  
 {
+  "user": {
     _id: Object_ID,
     firstname: String,
     lastname: String,
     age: Number,
-    password: String
+    password: String,
     email: String 
+  }
 }
 ```
 ### [GET] Read all users
@@ -119,7 +121,7 @@ Nothing
       firstname: String,
       lastname: String,
       age: Number,
-      password: String
+      password: String,
       email: String 
     },
     {
@@ -127,22 +129,22 @@ Nothing
       firstname: String,
       lastname: String,
       age: Number,
-      password: String
+      password: String,
       email: String 
     },
   ]
 }
 ```
 
-### [GET] Read all users
-Allows the read of everything users.
+### [GET] Read single user
+Allows the read of a single user.
 |                            |                  |
 |----------------------------|------------------|
 | Requires authentication ?  | No               |
 | Who can use it ?           | Owner and users  |
 | Response formats           | application/json |
 
-* HTTP request : POST → http://localhost:3000/api/users/read
+* HTTP request : POST → http://localhost:3000/api/users/read/:id
 
 #### Parameters :
 
@@ -150,17 +152,325 @@ Nothing
 
 #### Response :
 ```javascript  
-user : {
-  {
+{
+  "user" : {
+      _id: Object_ID,
+      firstname: String,
+      lastname: String,
+      age: Number,
+      password: String
+      email: String 
+  }
+}
+```
+
+### [PUT] Update user
+Allows the update of a user.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/users/update/:id
+
+#### Parameters :
+```javascript
+{
+  'firstname': String, // Optional  
+  'lastname': Number, // Optional  
+  'age': Number, // Optional  
+  'password': String // Optional
+  'email': String // Optional
+}
+```
+#### Response :
+```javascript  
+{
+  "msg": "user updated",
+  "docs": {
     _id: Object_ID,
     firstname: String,
     lastname: String,
     age: Number,
-    password: String
+    password: String,
     email: String 
   }
 }
 ```
 
-# API Event
-# API Group
+### [DELETE] Delete user
+Allows the delete of a user.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/users/delete/:id
+
+#### Parameters :
+```javascript
+{
+  'firstname': String, // Optional  
+  'lastname': Number, // Optional  
+  'age': Number, // Optional  
+  'password': String // Optional
+  'email': String // Optional
+}
+```
+#### Response :
+```javascript  
+{
+  "msg": "user deleted",
+  "docs": {
+    _id: Object_ID,
+    firstname: String,
+    lastname: String,
+    age: Number,
+    password: String,
+    email: String 
+  }
+}
+```
+## API Event [/events]
+
+  ## Structure
+
+### [POST] Create event
+Allows the creation of a single event.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/create
+
+#### Parameters :
+```javascript
+{
+    "title":"soirée à theme ange",
+    "description":"my description",
+    "location":"Dammarie-les-lys",
+    "members":["629dc2fc3c465a5fd718e2b6"]
+}
+```
+#### Response :
+```javascript  
+{
+    "event": {
+        "title": "soirée à theme ange",
+        "begin": "2022-06-08T23:37:32.000Z",
+        "end": "2022-06-08T23:37:32.000Z",
+        "location": "Dammarie-les-lys",
+        "picture": "cover.jpg",
+        "status": "public",
+        "surveys": [],
+        "members": [
+            "629dc2fc3c465a5fd718e2b6"
+        ],
+        "messages": [],
+        "id": "62a13374b83cbc33033fa8eb"
+    }
+}
+```
+
+### [GET] Read all event
+Allows the read of everything events.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/read
+
+#### Parameters :
+```javascript
+{
+    "title":"soirée à theme ange",
+    "description":"my description",
+    "location":"Dammarie-les-lys",
+    "members":["629dc2fc3c465a5fd718e2b6"]
+}
+```
+#### Response :
+```javascript  
+{
+    "events": [
+        {
+            "title": "soirée à theme ange",
+            "begin": "2022-06-08T23:37:32.000Z",
+            "end": "2022-06-08T23:37:32.000Z",
+            "location": "Dammarie-les-lys",
+            "picture": "cover.jpg",
+            "status": "public",
+            "surveys": [],
+            "members": [
+                "629dc2fc3c465a5fd718e2b6"
+            ],
+            "messages": [],
+            "id": "62a13374b83cbc33033fa8eb"
+        },
+        {
+            "title": "soirée à theme black",
+            "begin": "2022-06-08T23:37:32.000Z",
+            "end": "2022-06-08T23:37:32.000Z",
+            "location": "Paris",
+            "picture": "cover.jpg",
+            "status": "public",
+            "surveys": [],
+            "members": [
+                "629dc2fc3c465a5fd718e2b6",
+                "629dc2fc3c465adjdhdhjd45"
+            ],
+            "messages": [],
+            "id": "62a13374b83cbc33033fa8eb"
+        }
+    ]
+}
+```
+
+### [GET] Read event
+Allows the read of a single event.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/read/:id
+
+#### Parameters :
+NOTHING
+#### Response :
+```javascript  
+{
+    "event": {
+        "title": "soirée à theme ange",
+        "begin": "2022-06-08T23:37:32.000Z",
+        "end": "2022-06-08T23:37:32.000Z",
+        "location": "Dammarie-les-lys",
+        "picture": "cover.jpg",
+        "status": "public",
+        "surveys": [],
+        "members": [],
+        "messages": [],
+        "id": "62a13374b83cbc33033fa8eb"
+    }
+}
+```
+
+### [PUT] Update event
+Allows the update of a single event.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/update/:id
+
+#### Parameters :
+```javascript
+{
+    "title":"soirée à theme ange",
+    "description":"my description",
+    "location":"Dammarie-les-lys",
+    "members":["629dc2fc3c465a5fd718e2b6"]
+}
+```
+#### Response :
+```javascript  
+{
+    "msg":"event updated",
+    "event": {
+        "title": "soirée à theme ange",
+        "begin": "2022-06-08T23:37:32.000Z",
+        "end": "2022-06-08T23:37:32.000Z",
+        "location": "Dammarie-les-lys",
+        "picture": "cover.jpg",
+        "status": "public",
+        "surveys": [],
+        "members": [
+            "629dc2fc3c465a5fd718e2b6"
+        ],
+        "messages": [],
+        "id": "62a13374b83cbc33033fa8eb"
+    }
+}
+```
+
+### [DELETE] Delete event
+Allows the delete of a single event.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/delete/:id
+
+#### Parameters :
+
+NOTHING
+
+#### Response :
+```javascript  
+{
+    "msg":"event deleted",
+    "event": {
+        "title": "soirée à theme ange",
+        "begin": "2022-06-08T23:37:32.000Z",
+        "end": "2022-06-08T23:37:32.000Z",
+        "location": "Dammarie-les-lys",
+        "picture": "cover.jpg",
+        "status": "public",
+        "surveys": [],
+        "members": [],
+        "messages": [],
+        "id": "62a13374b83cbc33033fa8eb"
+    }
+}
+```
+
+### [POST] add member in event
+Allows the add new member event.
+|                            |                  |
+|----------------------------|------------------|
+| Requires authentication ?  | No               |
+| Who can use it ?           | Owner and users  |
+| Response formats           | application/json |
+
+* HTTP request : POST → http://localhost:3000/api/events/read/:id/member
+
+#### Parameters :
+
+```javascript
+{
+    "id":"629dc2fc3c465a5fd718e2b6"
+}
+```
+
+#### Response :
+```javascript  
+{
+    "msg":"event deleted",
+    "event": {
+        "title": "soirée à theme ange",
+        "begin": "2022-06-08T23:37:32.000Z",
+        "end": "2022-06-08T23:37:32.000Z",
+        "location": "Dammarie-les-lys",
+        "picture": "cover.jpg",
+        "status": "public",
+        "surveys": [],
+        "members": [
+            "629dc2fc3c465a5fd718e2b6"
+        ],
+        "messages": [],
+        "id": "62a13374b83cbc33033fa8eb"
+    }
+}
+```
+## API Group [/groups]
