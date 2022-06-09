@@ -302,6 +302,60 @@ const surveyModel = new Schema({
     }
 });
 
+/* create surveyModel */
+const ticktingModel = new Schema({
+    title: {
+        type: String,
+        required: [true, 'title is required']
+    },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',  
+    },
+    event_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'event', 
+    }
+    }, {
+      collection: 'ticketings',
+      minimize: true,
+      versionKey: false
+    }).set('toJSON', {
+      transform: (doc, ret) => {
+        ret.id = doc._id;
+    
+        delete ret._id;
+    }
+});
+
+const ticketModel = new Schema({
+    name: {
+        type: String,
+    },
+    montant: {
+        type: Number,
+        default: 15
+    },
+    quantity:{
+        type: Number,
+        default: 1
+    },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',  
+    }
+    }, {
+      collection: 'tickets',
+      minimize: true,
+      versionKey: false
+    }).set('toJSON', {
+      transform: (doc, ret) => {
+        ret.id = doc._id;
+    
+        delete ret._id;
+    }
+});
+
 const User = mongoose.model('user', userModel);
 const Event = mongoose.model('event', eventModel);
 const Group = mongoose.model('group', groupModel);
@@ -310,6 +364,8 @@ const Album = mongoose.model('album', albumModel);
 const Survey = mongoose.model('survey', surveyModel);
 const Question = mongoose.model('question', questionModel);
 const Answer = mongoose.model('answer', answerModel);
+const Ticketing = mongoose.model('ticketing', ticktingModel);
+const Ticket = mongoose.model('tickets', ticketModel);
 
 module.exports = {
     User,
@@ -319,5 +375,7 @@ module.exports = {
     Album,
     Survey, 
     Question,
-    Answer
+    Answer,
+    Ticketing,
+    Ticket
 }

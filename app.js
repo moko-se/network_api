@@ -22,6 +22,7 @@ const groupRouter = require('./routes/groupRouter');
 const threadRouter = require('./routes/threadRouter');
 const albumRouter = require('./routes/albumRouter');
 const surveyRouter = require('./routes/surveyRouter');
+const ticketingRouter = require('./routes/ticketingRouter');
 
 app.use('/api/users', userRouter);
 app.use('/api/events', eventRouter);
@@ -29,6 +30,7 @@ app.use('/api/groups', groupRouter);
 app.use('/api/threads', threadRouter);
 app.use('/api/albums', albumRouter);
 app.use('/api/surveys', surveyRouter);
+app.use('/api/ticketings', ticketingRouter);
 
 /* Capture de l'erreur 404 */
 app.use((req, res, next) => {

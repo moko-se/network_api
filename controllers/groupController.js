@@ -7,10 +7,12 @@ const ObjectID = require('mongoose').Types.ObjectId;
 const create = async (req, res) => {
     try{
 		const group = new Group(req.body);
-		group.save((err, docs) => {
-			if (err) res.status(400).json({ error: err });
-			res.status(200).json({ group: docs });
-		})
+		group
+			.save()
+			.then( (docs) => { 
+				res.status(200).json({ group: docs } || {});
+			})
+			.catch((error) => res.status(400).json({ error: error }));
 	}catch(error){
     	res.status(400).json({error: 'Error group create', error });
 	}
